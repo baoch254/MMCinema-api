@@ -13,6 +13,8 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findByEmail(String email);
 
+    Customer findByBarcode(String barcode);
+
     List<Customer> findByIdIn(List<Long> userIds);
 
     Boolean existsByEmail(String email);

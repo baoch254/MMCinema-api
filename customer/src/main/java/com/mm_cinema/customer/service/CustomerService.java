@@ -1,60 +1,72 @@
 package com.mm_cinema.customer.service;
 
+import com.mm_cinema.common_library.exception.BadRequestException;
+import com.mm_cinema.common_library.model.CollectionsResp;
+import com.mm_cinema.common_library.model.Pagination;
 import com.mm_cinema.customer.model.Customer;
-import com.mm_cinema.customer.model.enumeration.CustomerStatus;
 import com.mm_cinema.customer.repository.CustomerRepository;
-import com.mm_cinema.customer.view_model.UpdateCustomerVm;
-import lombok.extern.slf4j.Slf4j;
+import com.mm_cinema.customer.utils.BarcodeUtil;
+import com.mm_cinema.customer.view_model.*;
+import com.mm_cinema.common_library.exception.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-@Transactional
-public class CustomerService {
+public class CustomerService implements ICustomerService{
+
     private final CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
-    public Customer getCustomerByEmail(String email) {
-        Customer customer = customerRepository.findByEmail(email);
+    @Override
+    public CustomerVM getCustomerById(Long id) {
+        Customer customer = customerRepository.findById(id).orElse(new Customer());
+        return CustomerVM.fromModel(customer);
+    }
+
+    @Override
+    public CustomerVM getCustomerByBarcode(String barcode) {
+
+        boolean is_valid = BarcodeUtil.isValidBarcodeFormat(barcode);
+        if(!is_valid) {
+            throw new BadRequestException("Invalid barcode");
+        }
+
+        Customer customer = customerRepository.findByBarcode(barcode);
         if (customer == null) {
-            throw new IllegalStateException("Customer not found");
+            throw new NotFoundException(barcode);
         }
 
-        return customer;
+        return CustomerVM.fromModel(customer);
     }
 
-    public Customer getCustomerById(Long id) {
-        return customerRepository.
-                findById(id).
-                orElseThrow(() -> new IllegalStateException("Customer not found"));
+    @Override
+    public void updateCustomer(UpdateCustomerVm customerVm) {
+        // write logic update user in here
     }
 
-//    public void updateCustomer(UpdateCustomerVm customer) {
-//        Customer customerToUpdate = customerRepository.
-//                findById(customer.id()).
-//                orElseThrow(() -> new IllegalStateException("Customer not found"));
-//
-//        if (customerToUpdate.getStatus().equals(CustomerStatus.INACTIVE)) {
-//            throw new IllegalStateException("Customer is inactive");
-//        }
-//
-//        customerRepository.save(customer);
-//    }
+    @Override
+    public CollectionsResp getAllCustomers(Pageable pageable) {
+        Page<Customer> customerPage = customerRepository.findAll(pageable);
 
-    public void deleteCustomer(Long id) {
-        Customer customer = customerRepository.
-                findById(id).
-                orElseThrow(() -> new IllegalStateException("Customer not found"));
+        List<CustomerVM> customerVMs = customerPage.getContent().stream()
+                .map(CustomerVM::fromModel)
+                .collect(Collectors.toList());
 
-        if (customer.getStatus().equals(CustomerStatus.INACTIVE)) {
-            throw new IllegalStateException("Customer is inactive");
-        }
+        Pagination pagination = new Pagination(
+                customerPage.getTotalElements(),
+                customerPage.getTotalPages(),
+                customerPage.getSize(),
+                customerPage.getNumber() + 1
+        );
 
-        customerRepository.deleteById(id);
+        return new CollectionsResp(customerVMs, pagination);
     }
 
 }

@@ -1,29 +1,25 @@
 package com.mm_cinema.customer.model;
 
+import com.mm_cinema.common_library.model.AbstractAuditEntity;
 import com.mm_cinema.customer.model.enumeration.CustomerStatus;
 import com.mm_cinema.customer.model.enumeration.Gender;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "customers")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Customer {
+public class Customer extends AbstractAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "google_id", length = 255)
-    private String googleId;
 
     @Column(name = "first_name", length = 255, nullable = false)
     private String firstName;

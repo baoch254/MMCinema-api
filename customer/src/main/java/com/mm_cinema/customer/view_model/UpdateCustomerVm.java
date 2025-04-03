@@ -12,7 +12,6 @@ public record UpdateCustomerVm(
         String lastName,
         String email,
         String phone,
-        CustomerStatus status,
         Gender gender,
         LocalDateTime birthDay,
         String avatarUrl
@@ -24,7 +23,6 @@ public record UpdateCustomerVm(
                 .lastName(lastName)
                 .email(email)
                 .phone(phone)
-                .status(status)
                 .gender(gender)
                 .birthDay(birthDay)
                 .avatarUrl(avatarUrl)
