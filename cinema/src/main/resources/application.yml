@@ -1,0 +1,33 @@
+server:
+  port: ${ENV_SERVER_PORT:8080}
+
+app:
+  name: mm_cinema_cinema
+  api:
+    version: 0.0.1
+
+spring:
+  application:
+    name: cinema
+
+  datasource:
+    url: jdbc:postgresql://${ENV_DB_HOST:localhost}:${ENV_DB_PORT:5432}/${ENV_DB_NAME:mm_cinema}?allowPublicKeyRetrieval=true&useUnicode=true&character_set_server=utf8mb4&connectionCollation=utf8mb4_unicode_ci&useSSL=false&serverTimezone=UTC
+    username: ${ENV_DB_USERNAME:postgres}
+    password: ${ENV_DB_PASSWORD:123456}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+
+  doc:
+    swagger-ui:
+      path: /swagger-ui
+      oauth:
+        use-pkce-with-authorization-code-grant: true
+        client-id: swagger-ui
+    packagesToScan: com.mm_cinema.cinema

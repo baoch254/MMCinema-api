@@ -1,5 +1,6 @@
 package com.mm_cinema.customer.model;
 
+import com.mm_cinema.booking.model.Booking;
 import com.mm_cinema.common_library.model.AbstractAuditEntity;
 import com.mm_cinema.customer.model.enumeration.CustomerStatus;
 import com.mm_cinema.customer.model.enumeration.Gender;
@@ -7,6 +8,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -53,6 +56,9 @@ public class Customer extends AbstractAuditEntity {
 
     @Column(name = "avatar_url", length = 255)
     private String avatarUrl;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Booking> bookings = new ArrayList<>();
 
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
