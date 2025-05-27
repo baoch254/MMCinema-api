@@ -1,6 +1,5 @@
 package com.mm_cinema.employee.model;
 
-import com.mm_cinema.booking.model.BookingActivityLog;
 import com.mm_cinema.common_library.model.AbstractAuditEntity;
 import com.mm_cinema.employee.model.enumeration.EmployeeStatus;
 import com.mm_cinema.employee.model.enumeration.EmployeeStatusConverter;
@@ -10,8 +9,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -69,9 +66,6 @@ public class Employee extends AbstractAuditEntity {
 
     @Column(name = "start_date", nullable = false, updatable = false)
     private LocalDateTime startDate;
-
-    @OneToMany(mappedBy = "actionBy")
-    private List<BookingActivityLog> bookingActivityLogs = new ArrayList<>();
 
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;

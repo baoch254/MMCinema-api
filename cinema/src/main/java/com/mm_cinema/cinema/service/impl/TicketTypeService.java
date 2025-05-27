@@ -4,7 +4,6 @@ import com.mm_cinema.cinema.model.*;
 import com.mm_cinema.cinema.repository.*;
 import com.mm_cinema.cinema.service.*;
 import com.mm_cinema.cinema.utils.Constants;
-import com.mm_cinema.cinema.view_model.*;
 import com.mm_cinema.cinema.view_model.ticket_type.TicketTypeVm;
 import com.mm_cinema.cinema.view_model.ticket_type.UpdateTicketTypeVm;
 import com.mm_cinema.common_library.exception.NotFoundException;

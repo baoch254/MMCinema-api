@@ -4,7 +4,6 @@ import com.mm_cinema.cinema.model.*;
 import com.mm_cinema.cinema.repository.*;
 import com.mm_cinema.cinema.service.*;
 import com.mm_cinema.cinema.utils.Constants;
-import com.mm_cinema.cinema.view_model.*;
 import com.mm_cinema.cinema.view_model.seat.SeatVm;
 import com.mm_cinema.cinema.view_model.seat.UpdateSeatVm;
 import com.mm_cinema.common_library.exception.NotFoundException;

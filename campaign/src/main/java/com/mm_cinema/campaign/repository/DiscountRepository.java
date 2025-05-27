@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface DiscountRepository extends JpaRepository<Discount, Long> {
+public interface DiscountRepository extends JpaRepository<Discount,Long> {
 
     @Modifying
     @Transactional

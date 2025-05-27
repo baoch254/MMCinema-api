@@ -1,7 +1,6 @@
 package com.mm_cinema.cinema.model;
 
 
-import com.mm_cinema.booking.model.Booking;
 import com.mm_cinema.common_library.model.AbstractAuditEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,9 +45,6 @@ public class ShowTime extends AbstractAuditEntity {
 
     @OneToMany(mappedBy = "showingTime")
     private List<VersionCaption> versionCaptions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "showTime")
-    private List<Booking> bookings = new ArrayList<>();
 
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;

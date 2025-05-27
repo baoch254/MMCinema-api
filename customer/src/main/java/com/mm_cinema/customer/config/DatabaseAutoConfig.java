@@ -12,8 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Optional;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.mm_cinema.booking.repository", "com.mm_cinema.customer.repository"})
-@EntityScan(basePackages = {"com.mm_cinema.booking.model", "com.mm_cinema.customer.model"})
+@EnableJpaRepositories(basePackages = {"com.mm_cinema.customer.repository"})
+@EntityScan(basePackages = {"com.mm_cinema.customer.model"})
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class DatabaseAutoConfig {
 

@@ -1,11 +1,8 @@
 package com.mm_cinema.campaign.model;
 
 
-import com.mm_cinema.booking.model.Booking;
 import com.mm_cinema.campaign.model.enumeration.DiscountStatus;
 import com.mm_cinema.campaign.model.enumeration.DiscountStatusConverter;
-import com.mm_cinema.campaign.model.enumeration.PromotionStatus;
-import com.mm_cinema.campaign.model.enumeration.PromotionStatusConverter;
 import com.mm_cinema.common_library.model.AbstractAuditEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -50,9 +47,6 @@ public class Discount extends AbstractAuditEntity {
 
     @OneToMany(mappedBy = "discount")
     private List<DiscountRule> discountRules = new ArrayList<>();
-
-    @OneToMany(mappedBy = "discount")
-    private List<Booking> bookings = new ArrayList<>();
 
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
